@@ -1,52 +1,36 @@
-name: 打包应用并上传阿里云
+name: Deploy Pages
 
 on:
   push:
     branches:
-      - main
+      - main # 这里只配置了master分支，所以只有推送master分支才会触发以下任务
 
 jobs:
-  build:
-    # runs-on 指定job任务运行所需要的虚拟机环境(必填字段)
+  pages:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      # 获取源码
-      - name: 迁出代码
-        # 使用action库  actions/checkout获取源码
-        uses: actions/checkout@master
-
-      # 安装Node10
-      - name: 安装node.js
-        # 使用action库  actions/setup-node安装node
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.15.0
+        uses: actions/setup-node@v2
         with:
-          node-version: 18.12.0
-
-      # 安装pnpm
-      - name: 安装pnpm
+          node-version: '18'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Pnpm
         run: npm install -g pnpm
-
-      # 安装依赖
-      - name: 安装依赖
+      - name: Install Dependencies
         run: pnpm install
-
-      # 打包
-      - name: 打包
+      - name: Build
         run: pnpm run build
-
-      # 上传阿里云
-      - name: 发布到阿里云
-        uses: easingthemes/ssh-deploy@v2.1.1
-        env:
-          # 私钥
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-          # scp参数
-          ARGS: '-avzr --delete'
-          # 源目录
-          SOURCE: 'dist'
-          # 服务器ip：换成你的服务器IP
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          # 用户
-          REMOTE_USER: 'root'
-          # 目标地址
-          TARGET: '/www/wwwroot/lowcode'
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_PAGES_TOKEN }}
+          publish_dir: ./dist
