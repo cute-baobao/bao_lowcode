@@ -1,0 +1,27 @@
+.json_page {
+	height: 100%; // 确保容器占满父元素的高度
+	overflow: auto; // 允许滚动
+}
+
+.option_wrapper {
+	margin-top: 0.5em;
+}
+
+.event {
+	&_wrapper {
+		display: flex;
+		align-items: center;
+		&_select {
+			flex: 1;
+		}
+	}
+	&_form {
+		display: flex;
+		align-items: center;
+		margin-top: 0.5em;
+		gap: 10px;
+		&_input {
+			flex: 1;
+		}
+	}
+}

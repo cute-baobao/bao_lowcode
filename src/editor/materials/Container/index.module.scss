@@ -1,0 +1,18 @@
+@use '@/index.scss' as *;
+.container {
+	border: 1px solid #ccc;
+	height: fit-content;
+	width: 100%;
+	padding: 10px;
+	min-width: $container_sm;
+}
+
+.prod {
+	&_container {
+		border: 1px solid #ccc;
+		height: fit-content;
+		width: 100%;
+		min-width: $container_sm;
+		padding: 10px;
+	}
+}

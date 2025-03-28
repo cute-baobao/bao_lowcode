@@ -1,0 +1,47 @@
+:root {
+	font-size: 16px;
+}
+* {
+	padding: 0;
+	margin: 0;
+}
+html {
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+// 响应式断点
+$sm: 40rem;
+$md: 48rem;
+$lg: 64rem;
+$xl: 80rem;
+$xxl: 96rem;
+
+// 容器大小
+$container_xxs: 16rem;
+$container_xs: 20rem;
+$container_sm: 24rem;
+$container_md: 28rem;
+$container_lg: 32rem;
+$container_xl: 36rem;
+$container_xxl: 42rem;
+
+// 颜色
+$primary: #1890ff;
+$second: #69c0ff;
+$hover: #40a9ff;
+$click: #096dd9;
+$select: #91d5ff;
+
+@mixin font($size, $weight, $color) {
+	// 常规字体为14 12说明文字 14常规大小 16header 20标题 24大标题
+	// 字体颜色普通为 rgba(0,0,0,0.85) 0.65次级标题 0.45
+	// weight 为 500 400
+	font-weight: #{$weight};
+	font-size: #{$size};
+	line-height: calc(#{$size + 8});
+	color: #{$color};
+}

@@ -1,0 +1,21 @@
+.event {
+	&_wrapper {
+		display: flex;
+		align-items: center;
+		&_select {
+			flex: 1;
+		}
+	}
+	&_form {
+		display: flex;
+		align-items: center;
+		margin-top: 0.5em;
+		gap: 10px;
+		&_input {
+			flex: 1;
+		}
+		&_select {
+			flex: 1;
+		}
+	}
+}

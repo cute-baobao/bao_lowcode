@@ -1,0 +1,6 @@
+@use '@/index' as *;
+.option_wrapper {
+	margin-top: 0.5em;
+	height: $container_xl;
+	overflow: auto;
+}
