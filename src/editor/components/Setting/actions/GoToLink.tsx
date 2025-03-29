@@ -21,7 +21,6 @@ const GoToLink = (props: GoToLinkProps) => {
 
 	useEffect(() => {
 		if (value) setUrl(value);
-		else setUrl('');
 	}, [value]);
 
 	if (!curComponent) return null;

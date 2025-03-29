@@ -57,6 +57,7 @@ const ComponentEvent = () => {
 						onClick={(e) => {
 							e.stopPropagation();
 							setCurAction(undefined);
+							setCurEvent(event);
 							setActionModalOpen(true);
 						}}
 					>

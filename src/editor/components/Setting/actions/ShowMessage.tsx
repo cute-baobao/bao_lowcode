@@ -28,8 +28,6 @@ const ShowMessage = (props: ShowMessageProps) => {
 		if (value) {
 			setType(value.type);
 			setText(value.text);
-		} else {
-			setText('');
 		}
 	}, [value]);
 

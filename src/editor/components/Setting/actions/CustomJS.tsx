@@ -20,7 +20,6 @@ const CustomJs = (props: CustomJSProps) => {
 
 	useEffect(() => {
 		if (value) setCode(value);
-		else setCode('');
 	}, [value]);
 
 	const handleEditorMount: OnMount = (editor, monaco) => {
