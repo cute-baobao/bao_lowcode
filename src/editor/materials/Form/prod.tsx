@@ -54,8 +54,24 @@ const FormProd: ForwardRefRenderFunction<
 	};
 
 	return (
-		<div className={style.prod_form_wrapper}>
-			<Divider style={{ color: `${propsStyle.color}` }} orientation="left">
+		<div
+			className={style.prod_form_wrapper}
+			style={{
+				backgroundColor:
+					propsStyle && 'backgroundColor' in propsStyle
+						? propsStyle.backgroundColor
+						: '',
+			}}
+		>
+			<Divider
+				style={{
+					color:
+						propsStyle && 'color' in propsStyle
+							? propsStyle.color
+							: 'rgba(0,0,0,0.85)',
+				}}
+				orientation="left"
+			>
 				{title}
 			</Divider>
 			<Form

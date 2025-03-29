@@ -43,6 +43,10 @@ const FormDev = ({
 			className={style.form_wrapper}
 			style={{
 				border: canDrop ? `2px solid blue` : '1px solid #ccc',
+				backgroundColor:
+					propsStyle && 'backgroundColor' in propsStyle
+						? propsStyle.backgroundColor
+						: '',
 			}}
 			data-component-id={id}
 			ref={divRef}
@@ -59,6 +63,7 @@ const FormDev = ({
 				{title}
 			</Divider>
 			<Form
+				title=""
 				form={form}
 				labelCol={{ span: 4 }}
 				wrapperCol={{ flex: 'auto' }}

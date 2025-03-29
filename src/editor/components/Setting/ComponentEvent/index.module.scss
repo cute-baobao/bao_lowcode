@@ -1,0 +1,53 @@
+@use '@/index.scss' as *;
+.event {
+	&_wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		&_select {
+			flex: 1;
+		}
+	}
+	&_form {
+		display: flex;
+		align-items: center;
+		margin-top: 0.5em;
+		gap: 10px;
+		&_input {
+			flex: 1;
+		}
+	}
+	&_action {
+		&_wrapper {
+			@include font(12px, 400, rgba(0, 0, 0, 0.85));
+			position: relative;
+		}
+		&_item {
+			position: relative;
+			width: 100%;
+			padding: 0.4em;
+			border: 1px solid $primary;
+			border-radius: 0.3em;
+			margin-top: 0.3em;
+			&_title {
+				@include font(14px, 400, $primary);
+			}
+		}
+		&_editArea {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			@include font(14px, 400, rgba(0, 0, 0, 0.85));
+			&_button {
+				&:hover {
+					scale: 1.05;
+					cursor: pointer;
+					color: $hover;
+				}
+				&:active {
+					color: $click;
+				}
+			}
+		}
+	}
+}

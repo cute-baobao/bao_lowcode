@@ -1,4 +1,9 @@
 .header {
 	width: 100%;
 	padding: 10px;
+	&_title {
+		display: flex;
+		align-items: center;
+		gap: 0.2em;
+	}
 }

@@ -3,24 +3,32 @@ import useComponentsStore, { Component } from '@/editor/store/components';
 import React from 'react';
 import style from './index.module.scss';
 import { message } from 'antd';
+import { EventConfig } from '../Setting/ComponentEvent/ActionModal';
 
 const Preview = () => {
 	const { components } = useComponentsStore();
 	const { componentConfig } = useComponentConfigStore();
 
-	const handleEvent = (compoent: Component) => {
+	const handleEvent = (component: Component) => {
 		const props: Record<string, any> = {};
-		componentConfig[compoent.name].events?.forEach((event) => {
-			const eventConfig = compoent.props[event.name];
-			if (!eventConfig) return;
-			const { type, url, config } = eventConfig;
-			props[event.name] = () => {
-				console.log('我被出发了');
-				if (type === 'goToLink' && url) window.location.href = url;
-				else if (type === 'showMessage' && config)
-					if (config.type === 'success') message.success(config.text);
-					else message.error(config.text);
-			};
+		componentConfig[component.name].events?.forEach((event) => {
+			const eventConfig = component.props[event.name];
+			if (eventConfig) {
+				props[event.name] = () => {
+					eventConfig.actions?.forEach((item: EventConfig) => {
+						if (item.type === 'goToLink' && item.url)
+							window.location.href = item.url;
+						else if (item.type === 'showMessage' && item.config) {
+							if (item.config.type === 'success')
+								message.success(item.config.text);
+							else message.error(item.config.text);
+						} else if (item.type === 'customJS') {
+							const func = new Function(item.code);
+							func();
+						}
+					});
+				};
+			}
 		});
 		return props;
 	};
