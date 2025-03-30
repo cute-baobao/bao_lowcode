@@ -46,8 +46,8 @@ const HoverMask = (props: HoverMaskProps) => {
 		const labelLeft = left - containerLeft + width;
 		if (labelTop <= 0) labelTop -= -20;
 		setPosition({
-			top: top - containerTop + container.scrollTop,
-			left: left - containerLeft + container.scrollLeft,
+			top: top - containerTop,
+			left: left - containerLeft,
 			width,
 			height,
 			labelTop,
@@ -77,6 +77,16 @@ const HoverMask = (props: HoverMaskProps) => {
 		height: 'fit-content',
 		transform: 'translate(-100%,-100%)',
 	};
+
+	const resizeHandle = () => {
+		updatePosition();
+	};
+
+	useEffect(() => {
+		const container = document.querySelector(`.${containerClassName}`);
+		container?.addEventListener('scroll', resizeHandle);
+		return () => container?.removeEventListener('scroll', resizeHandle);
+	}, []);
 
 	return (
 		<>

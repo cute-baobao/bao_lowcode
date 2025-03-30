@@ -7,7 +7,10 @@ const ModalDev = ({
 	title,
 	style: propsStyle,
 }: CommonComponentProps) => {
-	const [{ canDrop }, drop] = useMaterialDrop(['Button', 'Container'], id);
+	const [{ canDrop }, drop] = useMaterialDrop(
+		['Button', 'Container', 'Table', 'Form'],
+		id
+	);
 	return (
 		<div
 			data-component-id={id}

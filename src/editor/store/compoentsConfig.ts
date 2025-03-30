@@ -5,6 +5,8 @@ import { ContainerProd, ContainerDev } from '../materials/Container';
 import { FormDev, FormProd } from '../materials/Form';
 import { FormItemDev, FormItemProd } from '../materials/FormItem';
 import { ModalDev, ModalProd } from '../materials/Modal';
+import { TableDev, TableProd } from '../materials/Table';
+import { TableColumnDev, TableColumnProd } from '../materials/TableColumn';
 
 export interface ComponentSetter {
 	name: string; // key
@@ -288,6 +290,57 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			styleSetter: [...commonCompoentStyleSetter],
 			dev: ModalDev,
 			prod: ModalProd,
+		},
+		Table: {
+			name: 'Table',
+			desc: '表格',
+			defaultProps: {},
+			setter: [
+				{
+					name: 'url',
+					label: 'url',
+					type: 'input',
+				},
+			],
+			dev: TableDev,
+			prod: TableProd,
+		},
+		TableColumn: {
+			name: 'TableColumn',
+			desc: '表格列',
+			defaultProps: {
+				dataIndex: `col_${new Date().getTime()}`,
+				title: '列名',
+			},
+			setter: [
+				{
+					name: 'type',
+					label: '类型',
+					type: 'select',
+					options: [
+						{
+							label: '文本',
+							value: 'text',
+						},
+						{
+							label: '日期',
+							value: 'date',
+						},
+					],
+				},
+				{
+					name: 'title',
+					label: '标题',
+					type: 'input',
+				},
+				{
+					name: 'dataIndex',
+					label: '字段',
+					type: 'input',
+				},
+			],
+			dev: TableColumnDev,
+			prod: TableColumnProd,
 		},
 	},
 	registerComponent: (name, componentConfig) =>

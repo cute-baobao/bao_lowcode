@@ -5,6 +5,7 @@ import useComponentsStore, {
 } from '@/editor/store/components';
 import { Select, TreeSelect } from 'antd';
 import { useEffect, useState } from 'react';
+import style from './index.module.scss';
 
 export interface ComponentMethodConfig {
 	type: 'componentMethod';
@@ -53,26 +54,25 @@ const ComponentMethod = (props: ComponentMethodProps) => {
 
 	return (
 		<div>
-			<div>
+			<div className={style.component_method_wrapper}>
 				<div>组件: </div>
-				<div>
-					<TreeSelect
-						value={curId}
-						style={{ width: '100%' }}
-						fieldNames={{ label: 'name', value: 'id' }}
-						treeData={components}
-						onChange={(value) => {
-							componentChange(value);
-						}}
-					/>
-				</div>
+
+				<TreeSelect
+					className={style.component_method_wrapper_input}
+					value={curId}
+					fieldNames={{ label: 'name', value: 'id' }}
+					treeData={components}
+					onChange={(value) => {
+						componentChange(value);
+					}}
+				/>
 			</div>
 			{componentConfig[selectedComponent?.name || ''] && (
-				<div>
-					<div>方法：</div>
+				<div className={style.component_method_wrapper}>
+					<div>方法: </div>
 					<Select
 						value={curMethod}
-						style={{ width: '100%' }}
+						className={style.component_method_wrapper_input}
 						options={componentConfig[
 							selectedComponent?.name || ''
 						].methods?.map((item) => {

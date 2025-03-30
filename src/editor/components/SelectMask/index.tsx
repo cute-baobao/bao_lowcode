@@ -20,11 +20,7 @@ function SelectedMask({ containerClassName, componentId }: SelectedMaskProps) {
 
 	useEffect(() => {
 		updatePosition();
-	}, [componentId]);
-
-	useEffect(() => {
-		updatePosition();
-	}, [components]);
+	}, [componentId, components]);
 
 	function updatePosition() {
 		if (!componentId) return;
@@ -45,10 +41,9 @@ function SelectedMask({ containerClassName, componentId }: SelectedMaskProps) {
 		if (labelTop <= 0) {
 			labelTop -= -20;
 		}
-
 		setPosition({
-			top: top - containerTop + container.scrollTop,
-			left: left - containerLeft + container.scrollTop,
+			top: top - containerTop,
+			left: left - containerLeft + container.scrollLeft,
 			width,
 			height,
 			labelTop,
@@ -61,6 +56,7 @@ function SelectedMask({ containerClassName, componentId }: SelectedMaskProps) {
 	};
 
 	useEffect(() => {
+		// 窗口大小监视器
 		const el = document.querySelector(`.${containerClassName}`);
 		const el1 = document.querySelector(`[data-component-id="${componentId}"]`);
 		if (!el || !el1) return;
@@ -68,6 +64,13 @@ function SelectedMask({ containerClassName, componentId }: SelectedMaskProps) {
 		resizeObserver.observe(el);
 		resizeObserver.observe(el1);
 		return () => resizeObserver.disconnect();
+	}, []);
+
+	useEffect(() => {
+		const container = document.querySelector(`.${containerClassName}`);
+		console.log(container);
+		container?.addEventListener('scroll', resizeHandle);
+		return () => container?.removeEventListener('scroll', resizeHandle);
 	}, []);
 
 	return (
