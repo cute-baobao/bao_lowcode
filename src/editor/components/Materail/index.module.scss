@@ -15,8 +15,12 @@
 	background: $primary;
 	display: flex;
 	align-items: center;
+	flex: 1;
 	@include font(14px, 400, rgba(0, 0, 0, 0.85));
 	&:hover {
 		background: $hover;
+	}
+	&_text {
+		flex-shrink: 0;
 	}
 }

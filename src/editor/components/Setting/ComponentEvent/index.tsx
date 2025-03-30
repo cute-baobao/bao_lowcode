@@ -2,7 +2,9 @@ import {
 	ComponentEvent as Event,
 	useComponentConfigStore,
 } from '@/editor/store/compoentsConfig';
-import useComponentsStore from '@/editor/store/components';
+import useComponentsStore, {
+	getComponentById,
+} from '@/editor/store/components';
 import { Button, Collapse, CollapseProps, message } from 'antd';
 import style from './index.module.scss';
 import { useState } from 'react';
@@ -11,7 +13,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 const ComponentEvent = () => {
 	const { componentConfig } = useComponentConfigStore();
-	const { curComponent, curComponentId, updateCompoentsProps } =
+	const { curComponent, curComponentId, updateCompoentsProps, components } =
 		useComponentsStore();
 	const [actionModalOpen, setActionModalOpen] = useState(false);
 	const [curEvent, setCurEvent] = useState<Event>();
@@ -120,6 +122,33 @@ const ComponentEvent = () => {
 											<div className={style.event_action_item_title}>
 												自定义JS
 											</div>
+											<div className={style.event_action_editArea}>
+												<Icon
+													className={style.event_action_editArea_button}
+													onClick={() => editorAction(item, index, event)}
+													icon="mdi:file-edit-outline"
+												/>
+												<Icon
+													className={style.event_action_editArea_button}
+													onClick={() => deleteAction(event, index)}
+													icon="mdi:delete"
+												/>
+											</div>
+										</div>
+									)}
+									{item.type === 'componentMethod' && (
+										<div className={style.event_action_item}>
+											<div className={style.event_action_item_title}>
+												组件方法
+											</div>
+											<div>
+												{
+													getComponentById(item.config.componentId, components)
+														?.desc
+												}
+											</div>
+											<div>{item.config.componentId}</div>
+											<div>{item.config.method}</div>
 											<div className={style.event_action_editArea}>
 												<Icon
 													className={style.event_action_editArea_button}

@@ -1,6 +1,6 @@
 import { useComponentConfigStore } from '@/editor/store/compoentsConfig';
 import useComponentsStore, { Component } from '@/editor/store/components';
-import React from 'react';
+import React, { useRef } from 'react';
 import style from './index.module.scss';
 import { message } from 'antd';
 import { EventConfig } from '../Setting/ComponentEvent/ActionModal';
@@ -8,6 +8,7 @@ import { EventConfig } from '../Setting/ComponentEvent/ActionModal';
 const Preview = () => {
 	const { components } = useComponentsStore();
 	const { componentConfig } = useComponentConfigStore();
+	const componentRefs = useRef<Record<string, any>>({});
 
 	const handleEvent = (component: Component) => {
 		const props: Record<string, any> = {};
@@ -25,6 +26,9 @@ const Preview = () => {
 						} else if (item.type === 'customJS') {
 							const func = new Function(item.code);
 							func();
+						} else if (item.type === 'componentMethod') {
+							const method = componentRefs.current[item.config.componentId];
+							if (method) method[item.config.method]?.();
 						}
 					});
 				};
@@ -44,6 +48,12 @@ const Preview = () => {
 					id: component.id,
 					name: component.name,
 					style: component.styles,
+					ref:
+						config.prod?.$$typeof === Symbol.for('react.forward_ref')
+							? (ref: Record<string, any>) => {
+									componentRefs.current[component.id] = ref;
+							  }
+							: undefined,
 					...config.defaultProps,
 					...component.props,
 					...handleEvent(component),

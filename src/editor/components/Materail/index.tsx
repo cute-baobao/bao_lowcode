@@ -22,8 +22,8 @@ const MaterailItem = (props: MaterailItemProps) => {
 			ref={drag}
 			className={style.materailItem}
 		>
-			<Icon icon="mdi:pac-man" />
-			<span>{desc}</span>
+			<Icon className={style.materailItem_text} icon="mdi:pac-man" />
+			<span className={style.materailItem_text}>{desc}</span>
 		</div>
 	);
 };

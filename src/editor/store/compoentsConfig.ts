@@ -4,6 +4,7 @@ import { PageProd, PageDev } from '../materials/Page';
 import { ContainerProd, ContainerDev } from '../materials/Container';
 import { FormDev, FormProd } from '../materials/Form';
 import { FormItemDev, FormItemProd } from '../materials/FormItem';
+import { ModalDev, ModalProd } from '../materials/Modal';
 
 export interface ComponentSetter {
 	name: string; // key
@@ -18,6 +19,11 @@ export interface ComponentEvent {
 	label: string;
 }
 
+export interface ComponentMethod {
+	name: string;
+	label: string;
+}
+
 export interface ComponentConfig {
 	name: string;
 	desc: string;
@@ -26,6 +32,7 @@ export interface ComponentConfig {
 	styleSetter?: ComponentSetter[];
 	events?: ComponentEvent[];
 	layoutSetter?: ComponentSetter[];
+	methods?: ComponentMethod[];
 	dev: any;
 	prod: any;
 }
@@ -247,6 +254,40 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			styleSetter: [...commonCompoentStyleSetter],
 			dev: FormItemDev,
 			prod: FormItemProd,
+		},
+		Modal: {
+			name: 'Modal',
+			desc: '弹窗',
+			defaultProps: {
+				title: '我是一个弹窗',
+			},
+			setter: [
+				{
+					name: 'title',
+					label: '标题',
+					type: 'input',
+				},
+			],
+			events: [
+				{
+					name: 'onOk',
+					label: '确认事件',
+				},
+				{
+					name: 'onCancel',
+					label: '取消事件',
+				},
+			],
+			methods: [
+				{
+					name: 'open',
+					label: '打开弹窗',
+				},
+				{ name: 'close', label: '关闭弹窗' },
+			],
+			styleSetter: [...commonCompoentStyleSetter],
+			dev: ModalDev,
+			prod: ModalProd,
 		},
 	},
 	registerComponent: (name, componentConfig) =>
