@@ -1,8 +1,6 @@
 import style from './index.module.scss';
 import { useComponentConfigStore } from '@/editor/store/compoentsConfig';
 import { useMemo } from 'react';
-import { Flex } from 'antd';
-import { Icon } from '@iconify/react';
 import useMaterialDrag from '@/editor/hooks/useMaterialDrag';
 
 interface MaterailItemProps {
@@ -22,7 +20,6 @@ const MaterailItem = (props: MaterailItemProps) => {
 			ref={drag}
 			className={style.materailItem}
 		>
-			<Icon className={style.materailItem_text} icon="mdi:pac-man" />
 			<span className={style.materailItem_text}>{desc}</span>
 		</div>
 	);
@@ -36,7 +33,7 @@ const Materail = () => {
 	return (
 		<div>
 			{components ? (
-				<Flex gap={10} wrap="wrap">
+				<div className={style.materail_wrapper}>
 					{components.map((item, index) => (
 						<MaterailItem
 							name={item.name}
@@ -44,7 +41,7 @@ const Materail = () => {
 							key={`materailItem_${index}`}
 						/>
 					))}
-				</Flex>
+				</div>
 			) : null}
 		</div>
 	);

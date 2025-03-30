@@ -41,7 +41,6 @@ const CustomJs = (props: CustomJSProps) => {
 
 	return (
 		<div>
-			<div>CustomJS</div>
 			<div>
 				<MonacoEditor
 					height={'200px'}

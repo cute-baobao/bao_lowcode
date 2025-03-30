@@ -7,6 +7,9 @@ import { FormItemDev, FormItemProd } from '../materials/FormItem';
 import { ModalDev, ModalProd } from '../materials/Modal';
 import { TableDev, TableProd } from '../materials/Table';
 import { TableColumnDev, TableColumnProd } from '../materials/TableColumn';
+import { TextDev, TextProd } from '../materials/Text';
+import { DividerDev, DividerProd } from '../materials/Divider';
+import { ImgDev, ImgProd } from '../materials/Img';
 
 export interface ComponentSetter {
 	name: string; // key
@@ -47,17 +50,7 @@ interface Action {
 	registerComponent: (name: string, componentConfig: ComponentConfig) => void;
 }
 
-const commonCompoentStyleSetter: ComponentSetter[] = [
-	{
-		name: 'width',
-		label: '宽度',
-		type: 'inputNumber',
-	},
-	{
-		name: 'height',
-		label: '高度',
-		type: 'inputNumber',
-	},
+const commonBoxStyleSetter: ComponentSetter[] = [
 	{
 		name: 'margin',
 		label: 'margin',
@@ -78,14 +71,22 @@ const commonCompoentStyleSetter: ComponentSetter[] = [
 		label: 'borderRadius',
 		type: 'inputNumber',
 	},
+];
+
+const commonCompoentStyleSetter: ComponentSetter[] = [
+	{
+		name: 'width',
+		label: '宽度',
+		type: 'inputNumber',
+	},
+	{
+		name: 'height',
+		label: '高度',
+		type: 'inputNumber',
+	},
 	{
 		name: 'backgroundColor',
 		label: '背景颜色',
-		type: 'colorPicker',
-	},
-	{
-		name: 'color',
-		label: '字体颜色',
 		type: 'colorPicker',
 	},
 ];
@@ -142,6 +143,34 @@ const commonLayoutStyleSetter: ComponentSetter[] = [
 		type: 'inputNumber',
 	},
 ];
+const commonFontSetter: ComponentSetter[] = [
+	{
+		name: 'color',
+		label: '字体颜色',
+		type: 'colorPicker',
+	},
+	{
+		name: 'fontSize',
+		label: '字体大小',
+		type: 'inputNumber',
+	},
+	{
+		name: 'lineHeight',
+		label: '行高',
+		type: 'input',
+	},
+	{
+		name: 'fontWeight',
+		label: '字体粗细',
+		type: 'select',
+		options: [
+			{ label: '浅色', value: '400' },
+			{ label: '普通', value: '500' },
+			{ label: '加粗', value: '600' },
+		],
+	},
+];
+
 export const useComponentConfigStore = create<State & Action>((set) => ({
 	componentConfig: {
 		Container: {
@@ -150,7 +179,7 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			defaultProps: {},
 			dev: ContainerDev,
 			prod: ContainerProd,
-			styleSetter: [...commonCompoentStyleSetter],
+			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
 			layoutSetter: [...commonLayoutStyleSetter],
 		},
 		Button: {
@@ -194,6 +223,8 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			name: 'Page',
 			desc: '页面',
 			defaultProps: {},
+			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
+			layoutSetter: [...commonLayoutStyleSetter],
 			dev: PageDev,
 			prod: PageProd,
 		},
@@ -203,10 +234,11 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			desc: '表单',
 			setter: [{ name: 'title', label: '标题', type: 'input' }],
 			events: [{ name: 'onFinish', label: '提交事件' }],
+			methods: [{ label: '提交', name: 'submit' }],
+			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
+			layoutSetter: [...commonLayoutStyleSetter],
 			dev: FormDev,
 			prod: FormProd,
-			styleSetter: [...commonCompoentStyleSetter],
-			layoutSetter: [...commonLayoutStyleSetter],
 		},
 		FormItem: {
 			name: 'FormItem',
@@ -253,7 +285,7 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 					],
 				},
 			],
-			styleSetter: [...commonCompoentStyleSetter],
+			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
 			dev: FormItemDev,
 			prod: FormItemProd,
 		},
@@ -287,7 +319,7 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 				},
 				{ name: 'close', label: '关闭弹窗' },
 			],
-			styleSetter: [...commonCompoentStyleSetter],
+			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
 			dev: ModalDev,
 			prod: ModalProd,
 		},
@@ -302,6 +334,8 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 					type: 'input',
 				},
 			],
+			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
+			layoutSetter: [...commonLayoutStyleSetter],
 			dev: TableDev,
 			prod: TableProd,
 		},
@@ -341,6 +375,56 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			],
 			dev: TableColumnDev,
 			prod: TableColumnProd,
+		},
+		Text: {
+			name: 'Text',
+			desc: '文本',
+			defaultProps: {
+				text: '输入文本',
+			},
+			setter: [
+				{
+					name: 'text',
+					label: '文本',
+					type: 'input',
+				},
+			],
+			styleSetter: [...commonCompoentStyleSetter, ...commonFontSetter],
+			dev: TextDev,
+			prod: TextProd,
+		},
+		Divider: {
+			name: 'Divider',
+			desc: '分割线',
+			defaultProps: {
+				text: '分割线',
+			},
+			setter: [{ label: '标题', name: 'text', type: 'input' }],
+			styleSetter: [...commonFontSetter],
+			dev: DividerDev,
+			prod: DividerProd,
+		},
+		Img: {
+			name: 'Img',
+			desc: '图片',
+			defaultProps: {},
+			setter: [{ name: 'src', label: '图片链接', type: 'input' }],
+			styleSetter: [
+				...commonCompoentStyleSetter,
+				...commonBoxStyleSetter,
+				{
+					name: 'objectFit',
+					label: 'objectFit',
+					type: 'select',
+					options: [
+						{ label: 'cover', value: 'cover' },
+						{ label: 'fill', value: 'fill' },
+						{ label: 'contain', value: 'contain' },
+					],
+				},
+			],
+			dev: ImgDev,
+			prod: ImgProd,
 		},
 	},
 	registerComponent: (name, componentConfig) =>

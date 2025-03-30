@@ -1,0 +1,11 @@
+@use '@/index.scss' as *;
+.img_wrapper {
+	width: $container_md;
+	height: $container_md;
+	border: 1px solid #eee;
+	overflow: hidden;
+}
+.img {
+	width: 100%;
+	height: 100%;
+}

@@ -1,9 +1,9 @@
 import style from './index.module.scss';
 import { CommonComponentProps } from '@/editor/interface';
 
-function PageProd({ id, children }: CommonComponentProps) {
+function PageProd({ children, style: propsStyle }: CommonComponentProps) {
 	return (
-		<div data-component-id={id} className={style.prod_page}>
+		<div style={{ ...propsStyle }} className={style.prod_page}>
 			{children}
 		</div>
 	);
