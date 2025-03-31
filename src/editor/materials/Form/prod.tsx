@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import style from './index.module.scss';
 import dayjs from 'dayjs';
+import UploadImgFormItem from '@/editor/components/UploadImgFormItem';
 
 interface FormRef {
 	submit: () => void;
@@ -99,6 +100,7 @@ const FormProd: ForwardRefRenderFunction<
 							) : item.type === 'date' ? (
 								<DatePicker />
 							) : null}
+							{item.type === 'upload' ? <UploadImgFormItem /> : null}
 						</Form.Item>
 					);
 				})}

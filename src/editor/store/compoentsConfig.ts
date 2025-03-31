@@ -235,7 +235,11 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 			setter: [{ name: 'title', label: '标题', type: 'input' }],
 			events: [{ name: 'onFinish', label: '提交事件' }],
 			methods: [{ label: '提交', name: 'submit' }],
-			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
+			styleSetter: [
+				...commonCompoentStyleSetter,
+				...commonFontSetter,
+				...commonBoxStyleSetter,
+			],
 			layoutSetter: [...commonLayoutStyleSetter],
 			dev: FormDev,
 			prod: FormProd,
@@ -260,6 +264,10 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 						{
 							label: '日期',
 							value: 'date',
+						},
+						{
+							label: '上传图片',
+							value: 'upload',
 						},
 					],
 				},
@@ -320,6 +328,7 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 				{ name: 'close', label: '关闭弹窗' },
 			],
 			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],
+			layoutSetter: [...commonLayoutStyleSetter],
 			dev: ModalDev,
 			prod: ModalProd,
 		},
