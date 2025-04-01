@@ -8,7 +8,8 @@ import React, {
 } from 'react';
 import style from './index.module.scss';
 import dayjs from 'dayjs';
-import UploadImgFormItem from '@/editor/components/UploadImgFormItem';
+import UploadImgFormItem from '@/editor/components/FormItem/UploadImgFormItem';
+import RadioGroupFormItem from '@/editor/components/FormItem/RadioGroupFormItem';
 
 interface FormRef {
 	submit: () => void;
@@ -27,6 +28,7 @@ const FormProd: ForwardRefRenderFunction<
 				name: item.props?.name,
 				type: item.props?.type,
 				id: item.props?.id,
+				options: item.props?.radioOptions,
 				rules: item.props?.rules,
 				style: item.props?.style,
 			};
@@ -95,12 +97,12 @@ const FormProd: ForwardRefRenderFunction<
 							}
 							style={{ ...item.style }}
 						>
-							{item.type === 'input' ? (
-								<Input />
-							) : item.type === 'date' ? (
-								<DatePicker />
-							) : null}
+							{item.type === 'input' ? <Input /> : null}
+							{item.type === 'date' ? <DatePicker /> : null}
 							{item.type === 'upload' ? <UploadImgFormItem /> : null}
+							{item.type === 'radio' ? (
+								<RadioGroupFormItem options={item.options} />
+							) : null}
 						</Form.Item>
 					);
 				})}

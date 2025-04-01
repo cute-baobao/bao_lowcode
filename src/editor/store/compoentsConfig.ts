@@ -269,6 +269,10 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 							label: '上传图片',
 							value: 'upload',
 						},
+						{
+							label: '单选框',
+							value: 'radio',
+						},
 					],
 				},
 				{
@@ -291,6 +295,11 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
 							value: 'required',
 						},
 					],
+				},
+				{
+					name: 'radioOptions',
+					label: '单选框的值',
+					type: 'input',
 				},
 			],
 			styleSetter: [...commonCompoentStyleSetter, ...commonBoxStyleSetter],

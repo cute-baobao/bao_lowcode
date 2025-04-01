@@ -68,7 +68,6 @@ function SelectedMask({ containerClassName, componentId }: SelectedMaskProps) {
 
 	useEffect(() => {
 		const container = document.querySelector(`.${containerClassName}`);
-		console.log(container);
 		container?.addEventListener('scroll', resizeHandle);
 		return () => container?.removeEventListener('scroll', resizeHandle);
 	}, []);
