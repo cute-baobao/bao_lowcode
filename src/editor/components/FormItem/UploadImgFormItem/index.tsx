@@ -6,8 +6,7 @@ interface UploadImgProps {
 	onChange?: (value: string) => void;
 }
 
-const UploadImgFormItem: React.FC<UploadImgProps> = ({ value, onChange }) => {
-	console.log(value);
+const UploadImgFormItem: React.FC<UploadImgProps> = ({ onChange }) => {
 	const [imageUrl, setImageUrl] = useState<string>();
 	type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 	const getBase64 = (img: FileType, callback: (url: string) => void) => {

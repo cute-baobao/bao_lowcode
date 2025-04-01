@@ -10,6 +10,7 @@ import style from './index.module.scss';
 import dayjs from 'dayjs';
 import UploadImgFormItem from '@/editor/components/FormItem/UploadImgFormItem';
 import RadioGroupFormItem from '@/editor/components/FormItem/RadioGroupFormItem';
+import CheckBoxGroupFormItem from '@/editor/components/FormItem/CheckBoxGroupFormItem';
 
 interface FormRef {
 	submit: () => void;
@@ -28,7 +29,7 @@ const FormProd: ForwardRefRenderFunction<
 				name: item.props?.name,
 				type: item.props?.type,
 				id: item.props?.id,
-				options: item.props?.radioOptions,
+				options: item.props?.radioGroups,
 				rules: item.props?.rules,
 				style: item.props?.style,
 			};
@@ -102,6 +103,9 @@ const FormProd: ForwardRefRenderFunction<
 							{item.type === 'upload' ? <UploadImgFormItem /> : null}
 							{item.type === 'radio' ? (
 								<RadioGroupFormItem options={item.options} />
+							) : null}
+							{item.type === 'checkBox' ? (
+								<CheckBoxGroupFormItem options={item.options} />
 							) : null}
 						</Form.Item>
 					);

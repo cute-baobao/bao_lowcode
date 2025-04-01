@@ -7,6 +7,7 @@ import debounce from '@/utils/debounce';
 import renderFormElement from '@/utils/renderFormElement';
 import { Divider, Form, Input } from 'antd';
 import { useEffect } from 'react';
+import RadioGroupsFormList from './RadioGropsFormList';
 
 const AttrForm = () => {
 	const [form] = Form.useForm();
@@ -54,6 +55,7 @@ const AttrForm = () => {
 							{renderFormElement(setter)}
 						</Form.Item>
 					))}
+				{curComponent.name === 'FormItem' ? <RadioGroupsFormList /> : null}
 			</Form>
 		</div>
 	);
